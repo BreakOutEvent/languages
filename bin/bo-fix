@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+var path = process.cwd();
+var program = require('commander');
+
+var script = require('../index.js');
+
+program.version('0.1.0');
+
+var availableLanguages = [
+    {
+        identifier: "en",
+        index: 4,
+    }, {
+        identifier: "de",
+        index: 3,
+    }
+];
+
+program
+    .arguments('<file>')
+    .option('-l, --language', 'Which language shoud be run')
+    .action(function(file) {
+        if (file) {
+            var languages = availableLanguages;
+            if (program.language) {
+                languages = availableLanguages.filter(function(x) { x.identifier == program.language });
+            }
+            console.log(languages);
+            script(file, languages, path);
+        } else {
+            console.log("Please Specify a Language CSV File.");
+        }
+    });
+
+program.parse(process.argv);

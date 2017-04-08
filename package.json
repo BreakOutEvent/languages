@@ -6,9 +6,13 @@
   "scripts": {
     "start": "node index.js"
   },
+  "bin": {
+    "bo-fix": "./bin/bo-fix"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^2.9.0",
     "csv-string": "^2.3.2"
   }
 }

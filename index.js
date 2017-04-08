@@ -29,13 +29,13 @@ function createFile(object) {
     return "module.exports = " + JSON.stringify(object, 4,  4) + ";";
 }
 
-function exportStrings(object, language) {
-    var filename = "translations." + language + ".js";
+function exportStrings(object, language, output) {
+    var filename = output + "/translations." + language + ".js";
     var file = createFile(object);
     fs.writeFileSync(filename, file);
 }
 
-function exportStringInFile(filename, languages) {
+function exportStringInFile(filename, languages, output) {
     var file = fs.readFileSync(filename, { encoding: "utf8" });
     var rows = CSV.parse(file).splice(1).filter(function(row) {
         return row[1] == "ja" && row[2] == "ja";
@@ -48,16 +48,8 @@ function exportStringInFile(filename, languages) {
         for (var j = 0; j < strings.length; j++) {
             addKey(languageObject, strings[j].key, strings[j].string);
         }
-        exportStrings(languageObject, identifier);
+        exportStrings(languageObject, identifier, output);
     }
 }
 
-exportStringInFile(filename, [
-    {
-        identifier: "en",
-        index: 4,
-    },{
-        identifier: "de",
-        index: 3,
-    }
-]);
+module.exports = exportStringInFile;
