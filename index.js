@@ -26,7 +26,7 @@ function addKey(languageObject, key, string) {
 }
 
 function createFile(object) {
-    return "module.exports = " + JSON.stringify(object, 4,  4) + ";";
+    return "// eslint-disable quotes\nmodule.exports = " + JSON.stringify(object, 2,  2) + ";";
 }
 
 function exportStrings(object, language, output) {
